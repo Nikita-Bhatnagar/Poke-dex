@@ -7,10 +7,11 @@ const Navbar = () => {
   const navigate = useNavigate();
   const [isDisplayingSearch, setIsDisplayingSearch] = useState(false);
 
-  function searchHandler() {
-    const query = searchInputRef.current.value.trim().toLowerCase();
+  function searchHandler(e) {
+    e.preventDefault();
+    const query = searchInputRef.current.value.toLowerCase();
 
-    if (query !== "") navigate(`/pokemon/${query}`);
+    if (query.trim() !== "") navigate(`/pokemon/${query}`);
     setIsDisplayingSearch(false);
   }
   function toggleSearchBar() {

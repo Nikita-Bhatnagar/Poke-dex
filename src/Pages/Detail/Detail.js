@@ -10,7 +10,7 @@ import EvolutionChain from "../../Components/Evolution/EvolutionChain";
 
 const Detail = () => {
   const params = useParams();
-  const id = params.pokemonId;
+  const id = params.pokemon;
   const details = useSelector((state) => state.DetailReducer);
 
   const dispatch = useDispatch();
