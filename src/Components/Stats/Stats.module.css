@@ -1,0 +1,30 @@
+.bar {
+  width: 350px;
+  border-radius: 10px;
+  background-color: rgb(237, 231, 231);
+  height: 10px;
+  margin-left: 10px;
+  position: absolute;
+  left: 120px;
+}
+.val {
+  border-radius: 10px;
+  height: 10px;
+}
+.stat {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  position: relative;
+  padding: 4px 0;
+}
+@media (max-width: 1310px) {
+  .bar {
+    width: 300px;
+  }
+}
+@media (max-width: 480px) {
+  .bar {
+    width: 56vw;
+  }
+}
