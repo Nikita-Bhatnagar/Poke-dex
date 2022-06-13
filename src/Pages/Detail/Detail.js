@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getDetails } from "../../Actions/Actions";
@@ -12,14 +12,44 @@ const Detail = () => {
   const params = useParams();
   const id = params.pokemon;
   const details = useSelector((state) => state.DetailReducer);
+  const [movesData, setMovesData] = useState([]);
+  const [isDisplayingAllMoves, setIsDisplayingAllMoves] = useState(false);
 
   const dispatch = useDispatch();
   const fetchDetails = () => {
     dispatch(getDetails(id));
+    displayMoves();
   };
+  const displayMoves = () => {
+    let moves;
+    if (details.data.moves) {
+      let index = details.data.moves.length;
+      if (details.data.moves.length > 20 && !isDisplayingAllMoves) {
+        index = 20;
+      }
+      moves = details.data.moves.slice(0, index).map((elem, i) => {
+        return (
+          <div className={classes.moveCard} key={i}>
+            <span>{elem.move.name}</span>
+          </div>
+        );
+      });
+    }
+    setMovesData(moves);
+  };
+
+  function toggleDisplayingAllMoves() {
+    setIsDisplayingAllMoves((prev) => !prev);
+  }
   useEffect(() => {
     fetchDetails();
   }, [id]);
+  useEffect(() => {
+    displayMoves();
+  }, [isDisplayingAllMoves]);
+  useEffect(() => {
+    displayMoves();
+  }, [details]);
   let color = "";
   if (details.data.types) color = getColor(details.data.types[0].type.name);
   let desc = "";
@@ -82,7 +112,10 @@ const Detail = () => {
           <section className={classes.sec2}>
             <div className={classes.content}>
               <div className={classes.column1}>
-                <h2 className={classes.h2} style={{ backgroundColor: color }}>
+                <h2
+                  className={classes.h2}
+                  style={{ backgroundColor: color, marginBottom: "45px" }}
+                >
                   Stats
                 </h2>
                 <div className={classes.statsWrapper}>
@@ -101,7 +134,10 @@ const Detail = () => {
                 </div>
               </div>
               <div className={classes.column2}>
-                <h2 className={classes.h2} style={{ backgroundColor: color }}>
+                <h2
+                  className={classes.h2}
+                  style={{ backgroundColor: color, marginBottom: "0px" }}
+                >
                   Info
                 </h2>
                 <div className={classes.wrapper}>
@@ -210,7 +246,7 @@ const Detail = () => {
               Moves
             </h2>
             <div className={classes.movesRow}>
-              {details.data.moves
+              {/* {details.data.moves
                 ? details.data.moves.map((elem, i) => {
                     return (
                       <div className={classes.moveCard} key={i}>
@@ -218,8 +254,18 @@ const Detail = () => {
                       </div>
                     );
                   })
-                : ""}
+                : ""} */}
+              {movesData}
             </div>
+            {details.data.moves?.length > 20 && (
+              <p
+                className={classes.seeMore}
+                onClick={toggleDisplayingAllMoves}
+                style={{ color: color }}
+              >
+                {isDisplayingAllMoves ? "See Less" : "See More"}
+              </p>
+            )}
           </section>
           <section className={classes.sec5}>
             <div className={classes.content}>

@@ -16,12 +16,10 @@ export const getList = (limit, offset) => {
     try {
       dispatch({ type: "LIST_LOADING" });
       const res = await axios.get(
-        `https://pokeapi.co/api/v2/pokemon/?limit=${limit}&offset=${offset}`
+        `${baseUrl}pokemon/?limit=${limit}&offset=${offset}`
       );
       const data = await getDetailedList(res.data.results);
-      const res2 = await axios.get(
-        `https://pokeapi.co/api/v2/pokemon-color/green`
-      );
+      const res2 = await axios.get(`${baseUrl}pokemon-color/green`);
 
       dispatch({
         type: "LIST_SUCCESS",
@@ -38,9 +36,7 @@ export const getDetails = (id) => {
   return async (dispatch) => {
     try {
       dispatch({ type: "DETAIL_LOADING" });
-      const { data } = await axios.get(
-        `https://pokeapi.co/api/v2/pokemon/${id}`
-      );
+      const { data } = await axios.get(`${baseUrl}pokemon/${id}`);
       const { data: speciesInfo } = await axios.get(`${data.species.url}`);
       const { data: evChain } = await axios.get(
         `${speciesInfo.evolution_chain.url}`

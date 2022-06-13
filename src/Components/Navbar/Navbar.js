@@ -13,6 +13,7 @@ const Navbar = () => {
 
     if (query.trim() !== "") navigate(`/pokemon/${query}`);
     setIsDisplayingSearch(false);
+    searchInputRef.current.value = "";
   }
   function toggleSearchBar() {
     setIsDisplayingSearch((prev) => !prev);

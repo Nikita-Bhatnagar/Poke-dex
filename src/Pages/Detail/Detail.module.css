@@ -97,14 +97,18 @@
 }
 .infoItem {
   font-size: 15px;
-  padding: 4px 0;
+  padding: 10px 0;
   width: 320px;
   position: relative;
 }
+
 @media (max-width: 1310px) {
-  .infoItem {
-    width: 260px;
+  .info:first-child .infoItem {
+    width: 220px;
   }
+  /* .infoItem {
+    width: 260px;
+  } */
 }
 .prop {
   font-weight: 600;
@@ -163,6 +167,12 @@
   justify-content: space-evenly;
   flex-wrap: wrap;
 }
+.seeMore {
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
 .moveCard {
   background-color: #fff;
   box-shadow: 1px 1px 2px 1px rgba(236, 235, 235, 0.778);
@@ -170,9 +180,10 @@
   font-weight: 500;
   padding: 4px 15px;
   margin: 8px;
-  width: 100px;
+  width: max-content;
   min-height: 40px;
   vertical-align: center;
+  text-transform: capitalize;
 }
 .moveCard span {
   vertical-align: middle;
@@ -223,6 +234,7 @@
   position: absolute;
   left: 200px;
   width: max-content;
+  text-transform: capitalize;
 }
 .sec5 .content {
   align-items: flex-start;
